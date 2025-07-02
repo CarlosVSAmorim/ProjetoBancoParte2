@@ -1,8 +1,6 @@
 @startuml
-' Título do Diagrama
 title Diagrama de Classes - Sistema Bancário
 
-' Estilo para melhor visualização
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam packageStyle rectangle
