@@ -12,16 +12,13 @@ Uma aplicação desktop desenvolvida em Java com interface gráfica (Swing) para
   </tr>
   <tr>
     <td>
-      <!-- SUBSTITUA PELA URL DA SUA IMAGEM -->
-      <img src="[https://via.placeholder.com/400x300.png?text=Tela+Principal+com+Lista+de+Contas](https://i.imgur.com/0U4BqK0.png)" alt="Tela Principal com a lista de contas correntes" width="100%">
+      <img src="https://i.imgur.com/0U4BqK0.png" alt="Tela Principal com a lista de contas correntes" width="100%">
     </td>
     <td>
-      <!-- SUBSTITUA PELA URL DA SUA IMAGEM -->
-      <img src="[https://via.placeholder.com/400x300.png?text=Tela+de+Cadastro+de+Conta](https://i.imgur.com/On4zhii.png)" alt="Janela modal para cadastrar uma conta" width="100%">
+      <img src="https://i.imgur.com/On4zhii.png" alt="Janela modal para cadastrar ou editar uma conta" width="100%">
     </td>
     <td>
-      <!-- SUBSTITUA PELA URL DA SUA IMAGEM -->
-      <img src="[https://via.placeholder.com/400x300.png?text=Tela+de+Operações+e+Extrato](https://i.imgur.com/sfxaww9.png)" alt="Tela com saldo detalhado, botões de operação e extrato" width="100%">
+      <img src="https://i.imgur.com/sfxaww9.png" alt="Tela com saldo detalhado, botões de operação e extrato" width="100%">
     </td>
   </tr>
 </table>
