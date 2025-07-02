@@ -1,0 +1,119 @@
+@startuml
+' Título do Diagrama
+title Diagrama de Classes - Sistema Bancário
+
+' Estilo para melhor visualização
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+' --- Pacote MODEL ---
+package model <<Model>> {
+    interface Transferivel {
+        +transferir(destino: Conta, valor: double): void
+    }
+
+    abstract class Conta {
+        #numero: int
+        #saldo: double
+    }
+
+    class ContaCorrente {
+        -limite: double
+        +depositar(valor: double): void
+        +sacar(valor: double): void
+    }
+
+    class Movimentacao {
+        -data: LocalDateTime
+        -valor: double
+        -tipo: TipoTransacao
+    }
+
+    enum TipoTransacao {
+        CREDITO
+        DEBITO
+    }
+
+    class SaldoInsuficienteException extends Exception
+
+    ContaCorrente --|> Conta
+    ContaCorrente ..|> Transferivel
+    ContaCorrente ..> SaldoInsuficienteException : throws
+    Movimentacao --> TipoTransacao
+}
+
+' --- Pacote DAO ---
+package dao <<DAO>> {
+    class ContaDAO {
+        +adicionar(conta: ContaCorrente): void
+        +atualizar(conta: ContaCorrente): void
+        +remover(numero: int): void
+        +buscarPorNumero(numero: int): ContaCorrente
+        +listarTodas(): List<ContaCorrente>
+    }
+
+    class MovimentacaoDAO {
+        +adicionar(mov: Movimentacao, contaNum: int): void
+        +listarPorConta(contaNum: int): List<Movimentacao>
+    }
+}
+note right of dao : "Camada de Acesso a Dados (DAO)\nResponsável pela comunicação\ncom o banco de dados."
+
+' --- Pacote UTIL ---
+package util {
+    class ConnectionFactory {
+        {static} +getConnection(): Connection
+        {static} +createTables(): void
+    }
+}
+
+' --- Pacote VIEW ---
+package view <<View>> {
+    class TelaPrincipal extends JFrame
+    class TelaCadastroConta extends JDialog
+    class TelaOperacoes extends JDialog
+    class ContaTableModel extends AbstractTableModel
+}
+note left of view : "Camada de Interface Gráfica (View)\nResponsável pela apresentação\ndos dados e interação com o usuário."
+
+
+' --- Pacote CONTROLLER ---
+package controller <<Controller>> {
+    class ContaController {
+        -viewPrincipal: TelaPrincipal
+        -contaDAO: ContaDAO
+        -movimentacaoDAO: MovimentacaoDAO
+    }
+}
+note top of controller : "Camada de Controle (Controller)\nOrquestra a lógica da aplicação,\nconectando a View e a camada de dados."
+
+' --- Classe Principal ---
+class Main {
+    {static} +main(args: String[]): void
+}
+
+' --- RELACIONAMENTOS ENTRE PACOTES ---
+Main ..> ContaController : cria
+Main ..> TelaPrincipal   : cria
+Main ..> ContaDAO        : cria
+
+ContaController ..> TelaPrincipal : atualiza
+ContaController ..> ContaDAO      : usa
+ContaController ..> MovimentacaoDAO : usa
+ContaController ..> TelaCadastroConta : abre
+ContaController ..> TelaOperacoes : abre
+
+TelaPrincipal ..> ContaController : notifica eventos
+TelaOperacoes ..> ContaController : notifica eventos
+
+ContaDAO ..> ConnectionFactory : usa
+MovimentacaoDAO ..> ConnectionFactory : usa
+
+ContaDAO ..> ContaCorrente : cria e retorna
+MovimentacaoDAO ..> Movimentacao : cria e retorna
+
+TelaPrincipal *-- ContaTableModel
+ContaTableModel ..> ContaCorrente : exibe
+
+@enduml
