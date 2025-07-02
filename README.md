@@ -78,28 +78,3 @@ Siga os passos abaixo para compilar e executar a aplicação localmente.
     ```bash
     java -cp ".;src;lib\sqlite-jdbc-VERSION.jar" Main
     ```
-
-## Estrutura do Projeto
-
-O projeto segue o padrão de arquitetura **Model-View-Controller (MVC)**, com uma camada adicional **DAO (Data Access Object)** para abstrair o acesso ao banco de dados.
-
-
-/
-├── lib/
-│ └── sqlite-jdbc-VERSION.jar # Driver de conexão com o banco
-├── src/
-│ ├── controller/
-│ │ └── ContaController.java # Controla a lógica entre View e Model
-│ ├── dao/
-│ │ ├── ContaDAO.java # Objeto de acesso a dados para Contas
-│ │ └── MovimentacaoDAO.java # Objeto de acesso a dados para Movimentações
-│ ├── model/
-│ │ ├── Conta.java # Classe base abstrata
-│ │ └── ... # Demais classes de negócio
-│ ├── util/
-│ │ └── ConnectionFactory.java # Gerencia a conexão com o banco
-│ ├── view/
-│ │ ├── TelaPrincipal.java # A interface gráfica principal
-│ │ └── ... # Demais componentes da UI
-│ └── Main.java # Ponto de entrada da aplicação
-└── banco.db # Arquivo do banco de dados (criado na execução)
